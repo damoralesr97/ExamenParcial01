@@ -5,6 +5,7 @@
  */
 package vista;
 
+import controlador.EventoVentanaInicial;
 import controlador.GestionDato;
 import java.awt.HeadlessException;
 import java.util.ArrayList;
@@ -45,7 +46,8 @@ public class VentanaInicial extends JFrame {
         this.menuItemList.add(new JMenuItem("Asistente"));
         this.menuItemList.add(new JMenuItem("Boleto"));
         //Agregaras los Action Listener JOVEN VEGA BRYAM
-        
+        this.menuItemList.get(1).addActionListener(new EventoVentanaInicial(this));
+        this.menuItemList.get(2).addActionListener(new EventoVentanaInicial(this));
         
         this.setContentPane(escritorio);
         this.setJMenuBar(barraMenu);

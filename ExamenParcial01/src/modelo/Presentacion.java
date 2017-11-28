@@ -15,7 +15,7 @@ public class Presentacion {
     private Artista artista;
     private Festival festival; 
 
-    public Presentacion(int orden, Artista artista, Festival festival) {
+    public Presentacion(Artista artista, Festival festival, int orden) {
         this.orden = orden;
         this.artista = artista;
         this.festival = festival;
