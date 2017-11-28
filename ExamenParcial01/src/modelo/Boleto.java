@@ -1,7 +1,7 @@
 
 package modelo;
 
- class Boleto {
+ public class Boleto {
      
      private String asiento;
      private Festival festival; 
