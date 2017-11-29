@@ -97,7 +97,7 @@ public class VentanaBoleto extends JInternalFrame
         int i=0;
         for(Boleto b:this.gD.getBoletoList())
         {
-            retorno[i][0]=b.getAsistente().getNombre();
+            retorno[i][0]=b.getAsistente().getNombre()+" "+b.getAsistente().getApellido();
             retorno[i][1]=b.getFestival().getNombre();
             retorno[i][2]=b.getAsientoFila()+" "+b.getAsientoColumna();
             i++;
@@ -108,7 +108,7 @@ public class VentanaBoleto extends JInternalFrame
         String[] retorno = new String[this.gD.getAsistenteList().size()];
         int i=0;
         for(Asistente bt:this.gD.getAsistenteList()){
-            retorno[i]=bt.getNombre();
+            retorno[i]=bt.getNombre()+" "+bt.getApellido();
             i++;
         }
         return retorno;

@@ -7,6 +7,7 @@ package controlador;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.JOptionPane;
 import modelo.Festival;
 import vista.VentanaFestival;
 
@@ -36,17 +37,52 @@ public class EventoVentanaFestival implements ActionListener {
     public void actionPerformed(ActionEvent e) {
          String capacidad="",nombre="",fecha="",lugar="";
          
-         nombre=this.ventanaFestival.getTxtList().get(0).getText();
-         fecha=this.ventanaFestival.getTxtList().get(1).getText();
-         capacidad=this.ventanaFestival.getTxtList().get(2).getText();
-         lugar=this.ventanaFestival.getTxtList().get(3).getText();
+         boolean banderaVacio=true,bandera=true,banderaLetraN=true,banderaNC=true;
          
-         Festival f=new Festival(nombre,fecha,capacidad,lugar);
-         this.ventanaFestival.getgD().addFestival(f);
+         ExcepcionVacio eV=new ExcepcionVacio();
+         ExcepcionUsuario eU=new ExcepcionUsuario(this.ventanaFestival.getgD());
+         ExcepcionControlLetraNumero eCLN=new ExcepcionControlLetraNumero();
+        
+         try{
+             
+            nombre=this.ventanaFestival.getTxtList().get(0).getText();
+            fecha=this.ventanaFestival.getTxtList().get(1).getText();
+            capacidad=this.ventanaFestival.getTxtList().get(2).getText();
+            lugar=this.ventanaFestival.getTxtList().get(3).getText();
+            
+            banderaVacio=eV.verificarVacioFestival(nombre, fecha, capacidad, lugar);
+            bandera=eU.verificarFestival(nombre, fecha);
+            banderaLetraN= eCLN.verificar(nombre);
+            banderaNC=eCLN.verificarN(capacidad);
+            
+            if(banderaVacio==false){
+                throw new ExcepcionVacio();
+            }else if(bandera==false){
+                throw new ExcepcionUsuario("FESTIVAL YA REGISTRADO");
+            }else if(banderaLetraN==false || banderaNC==false){
+                throw new ExcepcionControlLetraNumero();
+            }
+            
+         }
+         catch(ExcepcionVacio exV){
+             JOptionPane.showMessageDialog(null,exV.getMessage(),"ERROR",JOptionPane.ERROR_MESSAGE);
+         }
+         catch(ExcepcionUsuario exU){
+             JOptionPane.showMessageDialog(null,exU.getMessage(),"ERROR",JOptionPane.ERROR_MESSAGE);
+         }
+         catch(ExcepcionControlLetraNumero exC){
+             JOptionPane.showMessageDialog(null,exC.getMessage(),"ERROR",JOptionPane.ERROR_MESSAGE);
+         }
          
-         Object[][] datoFestival=this.ventanaFestival.cargaDatosTabla(this.ventanaFestival.getgD().getFestivalList().size(),4);
-         this.ventanaFestival.setDatos(datoFestival);
-         this.ventanaFestival.getModeloTabla().setDataVector(this.ventanaFestival.getDatos(),this.ventanaFestival.getEncabezado());
+         if(banderaVacio==true && bandera==true && banderaLetraN==true && banderaNC==true){
+            Festival f=new Festival(nombre,fecha,capacidad,lugar);
+            this.ventanaFestival.getgD().addFestival(f);
+
+            Object[][] datoFestival=this.ventanaFestival.cargaDatosTabla(this.ventanaFestival.getgD().getFestivalList().size(),4);
+            this.ventanaFestival.setDatos(datoFestival);
+            this.ventanaFestival.getModeloTabla().setDataVector(this.ventanaFestival.getDatos(),this.ventanaFestival.getEncabezado());
+         }
+         
     }
     
 }

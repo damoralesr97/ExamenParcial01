@@ -97,9 +97,9 @@ public class VentanaArtista extends JInternalFrame {
         int i=0;
         for(Artista ar:this.gD.getArtistaList())
         {
-            retorno[i][0]=ar.getCedula();
-            retorno[i][1]=ar.getNombre();
-            retorno[i][2]=ar.getApellido();
+            retorno[i][0]=ar.getNombre();
+            retorno[i][1]=ar.getApellido();
+            retorno[i][2]=ar.getCedula();
             retorno[i][3]=ar.getGenero();
             i++;
         }        

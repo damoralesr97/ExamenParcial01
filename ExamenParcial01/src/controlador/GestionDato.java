@@ -112,7 +112,7 @@ public class GestionDato {
     public Asistente buscarAsistente(String asistente){
         String buscar="";
         for(Asistente a:this.getAsistenteList()){
-            buscar=a.getNombre();
+            buscar=a.getNombre()+" "+a.getApellido();
             if(buscar.equals(asistente)){
                 return a;
             }
@@ -147,7 +147,6 @@ public class GestionDato {
                 return 1;
             }else if(b.getAsientoColumna()==contador){
                 contador++;
-                System.out.println(contador);
                 return contador;
             }
         }
