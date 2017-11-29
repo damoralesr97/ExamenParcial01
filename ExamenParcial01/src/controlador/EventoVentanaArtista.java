@@ -42,8 +42,6 @@ public class EventoVentanaArtista implements ActionListener {
         cedula=this.ventanaArtista.getTxtList().get(2).getText();
         genero=this.ventanaArtista.getTxtList().get(3).getText();
         
-        
-            
         Artista a=new Artista(nombre,apellido,cedula,genero);
         this.ventanaArtista.getgD().addArtista(a);
             
