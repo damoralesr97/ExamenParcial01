@@ -5,6 +5,7 @@
  */
 package vista;
 
+import controlador.EventoVentanaArtista;
 import controlador.GestionDato;
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
@@ -40,15 +41,16 @@ public class VentanaArtista extends JInternalFrame {
     public VentanaArtista(GestionDato gD) {
         super("Registrar Artista",true,true,true,true);
         this.gD = gD;
-        this.setSize(500,650);
+        this.setSize(300,300);
         this.iniciaComponentes();
     }
     
+    
     public void iniciaComponentes(){
         this.etiList = new ArrayList<JLabel>();
-        this.etiList.add(new JLabel("Cedula"));
         this.etiList.add(new JLabel("Nombre"));
         this.etiList.add(new JLabel("Apellido"));
+        this.etiList.add(new JLabel("Cedula"));
         this.etiList.add(new JLabel("Genero"));
         this.txtList = new ArrayList<JTextField>();
         this.txtList.add(new JTextField());
@@ -60,21 +62,20 @@ public class VentanaArtista extends JInternalFrame {
         
         LayoutManager disenioPrincipal = new BorderLayout();
         this.panelPrincipal = new JPanel(disenioPrincipal);
-        LayoutManager disenioSup = new GridLayout(4,2);
+        LayoutManager disenioSup = new GridLayout(5,2);
         JPanel panelSup = new JPanel(disenioSup);
         
         for(int i=0;i<4;i++){
             panelSup.add(this.etiList.get(i));
             panelSup.add(this.txtList.get(i));
         }
-        this.panelPrincipal.add(panelSup,BorderLayout.NORTH);
-        this.panelPrincipal.add(this.boton,BorderLayout.CENTER);
+        panelSup.add(this.boton);
         
         //Tabla
         this.encabezado = new Object[4];
-        this.encabezado[0]="Cedula";
-        this.encabezado[1]="Nombre";
-        this.encabezado[2]="Apellido";
+        this.encabezado[0]="Nombre";
+        this.encabezado[1]="Apellido";
+        this.encabezado[2]="Cedula";
         this.encabezado[3]="Genero";
         
         this.datos = cargaDatosTabla(this.getgD().getArtistaList().size(),4);
@@ -82,7 +83,10 @@ public class VentanaArtista extends JInternalFrame {
         this.tabla = new JTable(modeloTabla);
         this.scroll = new JScrollPane(this.tabla);
         
-        this.panelPrincipal.add(this.scroll,BorderLayout.SOUTH);
+        this.panelPrincipal.add(panelSup,BorderLayout.NORTH);
+        this.panelPrincipal.add(this.scroll,BorderLayout.CENTER);
+        
+        this.boton.addActionListener(new EventoVentanaArtista(this));
         
         this.add(this.panelPrincipal);
     }

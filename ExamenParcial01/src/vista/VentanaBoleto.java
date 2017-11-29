@@ -5,6 +5,7 @@
  */
 package vista;
 
+import controlador.EventoVentanaBoleto;
 import controlador.GestionDato;
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
@@ -46,14 +47,16 @@ public class VentanaBoleto extends JInternalFrame
     public VentanaBoleto(GestionDato gD) {
         super("Registrar Boleto",true,true,true,true);
         this.gD = gD;
-        this.setSize(500,600);
+        this.setSize(300,300);
         this.iniciaComponentes();
     }
+    
+    
+    
     public void iniciaComponentes(){
         this.etiList = new ArrayList<JLabel>();
         this.etiList.add(new JLabel("Asistente"));
         this.etiList.add(new JLabel("Festival"));
-        this.etiList.add(new JLabel("Asiento"));
         this.comboList = new ArrayList<JComboBox>();
         this.comboList.add(new JComboBox(this.cargarComboAsistente()));
         this.comboList.add(new JComboBox(this.cargarComboFestival()));
@@ -69,22 +72,22 @@ public class VentanaBoleto extends JInternalFrame
             panelSup.add(this.etiList.get(i));
             panelSup.add(this.comboList.get(i));
         }
-        panelSup.add(this.etiList.get(2));
-        panelSup.add(this.txt);
-        this.panelInicial.add(panelSup,BorderLayout.NORTH);
-        this.panelInicial.add(this.boton,BorderLayout.CENTER);
+        panelSup.add(this.boton);
         
         this.encabezado = new Object[3];
         this.encabezado[0] = "Asistente";
         this.encabezado[1] = "Festival";
         this.encabezado[2] = "Asiento";
         
-        this.datos = this.cargaDatosTabla(this.gD.getFestivalList().size(), 3);
+        this.datos = this.cargaDatosTabla(this.gD.getBoletoList().size(), 3);
         this.modeloTabla = new DefaultTableModel(this.datos,this.encabezado);
         this.tabla = new JTable(modeloTabla);
         this.scroll = new JScrollPane(tabla);
         
-        this.panelInicial.add(this.scroll,BorderLayout.SOUTH);
+        this.panelInicial.add(panelSup,BorderLayout.NORTH);
+        this.panelInicial.add(this.scroll,BorderLayout.CENTER);
+        
+        this.boton.addActionListener(new EventoVentanaBoleto(this));
         
         this.add(this.panelInicial);
     }
@@ -96,13 +99,13 @@ public class VentanaBoleto extends JInternalFrame
         {
             retorno[i][0]=b.getAsistente().getNombre();
             retorno[i][1]=b.getFestival().getNombre();
-            retorno[i][2]=b.getAsiento();
+            retorno[i][2]=b.getAsientoFila()+" "+b.getAsientoColumna();
             i++;
         }        
         return retorno;
     }
        public String[] cargarComboAsistente(){
-        String[] retorno = new String[this.gD.getArtistaList().size()];
+        String[] retorno = new String[this.gD.getAsistenteList().size()];
         int i=0;
         for(Asistente bt:this.gD.getAsistenteList()){
             retorno[i]=bt.getNombre();
@@ -111,7 +114,7 @@ public class VentanaBoleto extends JInternalFrame
         return retorno;
     }
     public String[] cargarComboFestival(){
-        String[] retorno = new String[this.gD.getArtistaList().size()];
+        String[] retorno = new String[this.gD.getFestivalList().size()];
         int i=0;
         for(Festival fest:this.gD.getFestivalList()){
             retorno[i]=fest.getNombre();

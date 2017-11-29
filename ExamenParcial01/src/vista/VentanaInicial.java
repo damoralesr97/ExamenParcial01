@@ -30,7 +30,7 @@ public class VentanaInicial extends JFrame {
     public VentanaInicial(GestionDato gD, String title) throws HeadlessException {
         super(title);
         this.gD = gD;
-        this.setSize(1280, 800);
+        this.setSize(700,700);
         this.setDefaultCloseOperation(3);
         this.iniciaComponentes();
     }
@@ -45,7 +45,7 @@ public class VentanaInicial extends JFrame {
         this.menuItemList.add(new JMenuItem("Presentacion"));
         this.menuItemList.add(new JMenuItem("Asistente"));
         this.menuItemList.add(new JMenuItem("Boleto"));
-        //Agregaras los Action Listener JOVEN VEGA BRYAM
+        
         
         this.menuItemList.get(0).addActionListener(new EventoVentanaInicial(this));
         this.menuItemList.get(1).addActionListener(new EventoVentanaInicial(this));

@@ -5,6 +5,7 @@
  */
 package vista;
 
+import controlador.EventoVentanaPresentacion;
 import controlador.GestionDato;
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
@@ -44,9 +45,11 @@ public class VentanaPresentacion extends JInternalFrame {
     public VentanaPresentacion(GestionDato gD) {
         super("Registrar Presentacion",true,true,true,true);
         this.gD = gD;
-        this.setSize(500,600);
+        this.setSize(300,300);
         this.iniciaComponentes();
     }
+    
+    
     
     public void iniciaComponentes(){
         this.etiList = new ArrayList<JLabel>();
@@ -62,7 +65,7 @@ public class VentanaPresentacion extends JInternalFrame {
         
         LayoutManager disenioPrincipal = new BorderLayout();
         this.panelInicial = new JPanel(disenioPrincipal);
-        LayoutManager disenioSup = new GridLayout(3,2);
+        LayoutManager disenioSup = new GridLayout(4,2);
         JPanel panelSup = new JPanel(disenioSup);
         for(int i=0;i<2;i++){
             panelSup.add(this.etiList.get(i));
@@ -70,20 +73,22 @@ public class VentanaPresentacion extends JInternalFrame {
         }
         panelSup.add(this.etiList.get(2));
         panelSup.add(this.txt);
-        this.panelInicial.add(panelSup,BorderLayout.NORTH);
-        this.panelInicial.add(this.boton,BorderLayout.CENTER);
+        panelSup.add(this.boton);
         
         this.encabezado = new Object[3];
         this.encabezado[0] = "Artista";
         this.encabezado[1] = "Festival";
         this.encabezado[2] = "Orden";
         
-        this.datos = this.cargaDatosTabla(this.gD.getFestivalList().size(), 3);
+        this.datos = this.cargaDatosTabla(this.gD.getPresentacionList().size(), 3);
         this.modeloTabla = new DefaultTableModel(this.datos,this.encabezado);
         this.tabla = new JTable(modeloTabla);
         this.scroll = new JScrollPane(tabla);
         
-        this.panelInicial.add(this.scroll,BorderLayout.SOUTH);
+        this.panelInicial.add(panelSup,BorderLayout.NORTH);
+        this.panelInicial.add(this.scroll,BorderLayout.CENTER);
+        
+        this.boton.addActionListener(new EventoVentanaPresentacion(this));
         
         this.add(this.panelInicial);
     }

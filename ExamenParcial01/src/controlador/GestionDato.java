@@ -7,7 +7,7 @@ package controlador;
 
 /**
  *
- * @author Estudiante
+ * @author bryam
  */
 import java.util.List;
 import modelo.*;
@@ -67,5 +67,91 @@ public class GestionDato {
         this.presentacionList = presentacionList;
     }
     
+    public boolean addArtista(Artista a){
+        return this.artistaList.add(a);
+    }
+    
+    public boolean addAsistente(Asistente as){
+        return this.asistenteList.add(as);
+    }
+    
+    public boolean addBoleto(Boleto b){
+        return this.boletoList.add(b);
+    }
+    
+    public boolean addFestival(Festival f){
+        return this.festivalList.add(f);
+    }
+    
+    public boolean addPresentacion(Presentacion p){
+        return this.presentacionList.add(p);
+    }
+    
+    public Artista buscarArtista(String artista){
+        String buscar="";
+        for(Artista a:this.getArtistaList()){
+            buscar=a.getNombre()+" "+a.getApellido();
+            if(buscar.equals(artista)){
+                return a;
+            }
+        }
+    return null;
+    }
+    
+    public Festival buscarFestival(String festival){
+        String buscar="";
+        for(Festival f:this.getFestivalList()){
+            buscar=f.getNombre();
+            if(buscar.equals(festival)){
+                return f;
+            }
+        }
+    return null;
+    }
+    
+    public Asistente buscarAsistente(String asistente){
+        String buscar="";
+        for(Asistente a:this.getAsistenteList()){
+            buscar=a.getNombre();
+            if(buscar.equals(asistente)){
+                return a;
+            }
+        }
+    return null;
+    }
+    
+    public char fila(char a){
+        int contador=0;
+        if(this.getBoletoList().size()!=0){
+            a=this.getBoletoList().get(this.getBoletoList().size()-1).getAsientoFila();
+        }   
+        for(Boleto b:this.getBoletoList()){
+            if(b.getAsientoFila()==a){
+                contador++;
+            }
+            if(contador==5){
+                return (char)(a+1);
+            }
+        }
+    return a;
+    }
+    
+     public int columna(int c){
+        int contador=0;
+         if(this.getBoletoList().size()!=0){
+            c=this.getBoletoList().get(this.getBoletoList().size()-1).getAsientoColumna();
+            contador=this.getBoletoList().get(this.getBoletoList().size()-1).getAsientoColumna();
+        }   
+        for(Boleto b:this.getBoletoList()){
+            if(c==5){
+                return 1;
+            }else if(b.getAsientoColumna()==contador){
+                contador++;
+                System.out.println(contador);
+                return contador;
+            }
+        }
+    return c;
+    }
     
 }

@@ -5,6 +5,7 @@
  */
 package vista;
 
+import controlador.EventoVentanaAsistente;
 import controlador.GestionDato;
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
@@ -42,8 +43,11 @@ public class VentanaAsistente extends JInternalFrame
         super("Registrar Asistente",true,true,true,true);
         this.gD=gD;
         this.iniciaComponentes();
-        this.setSize(500, 500);
+        this.setSize(300, 300);
     }
+     
+     
+     
       public void iniciaComponentes()
      {
         this.etiList = new ArrayList<JLabel>();
@@ -62,7 +66,7 @@ public class VentanaAsistente extends JInternalFrame
         
         LayoutManager disenioPrincipal = new BorderLayout();
         this.panelPrincipal = new JPanel(disenioPrincipal);
-        LayoutManager disenioSup = new GridLayout(6,2);
+        LayoutManager disenioSup = new GridLayout(5,2);
         JPanel panelSup = new JPanel(disenioSup);
         
         for(int i=0;i<4;i++)
@@ -88,6 +92,7 @@ public class VentanaAsistente extends JInternalFrame
         
         this.panelPrincipal.add(this.scroll,BorderLayout.CENTER);
         
+        this.boton.addActionListener(new EventoVentanaAsistente(this));
         
         this.add(this.panelPrincipal);
         

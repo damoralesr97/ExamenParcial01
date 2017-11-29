@@ -5,6 +5,7 @@
  */
 package vista;
 
+import controlador.EventoVentanaFestival;
 import controlador.GestionDato;
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
@@ -43,8 +44,11 @@ public class VentanaFestival extends JInternalFrame
         super("Registrar Festival",true,true,true,true);
         this.gD = gD;
         this.iniciaComponentes();
-        this.setSize(500, 500);
+        this.setSize(300, 300);
     }
+    
+    
+    
     public void iniciaComponentes(){
         this.etiList = new ArrayList<JLabel>();
         this.etiList.add(new JLabel("Nombre"));
@@ -64,7 +68,7 @@ public class VentanaFestival extends JInternalFrame
         
         LayoutManager disenioPrincipal = new BorderLayout();
         this.panelPrincipal = new JPanel(disenioPrincipal);
-        LayoutManager disenioSup = new GridLayout(6,2);
+        LayoutManager disenioSup = new GridLayout(5,2);
         JPanel panelSup = new JPanel(disenioSup);
         
         for(int i=0;i<4;i++)
@@ -90,10 +94,11 @@ public class VentanaFestival extends JInternalFrame
         
         this.panelPrincipal.add(this.scroll,BorderLayout.CENTER);
         
-
+        this.boton.addActionListener(new EventoVentanaFestival(this));
         
         this.add(this.panelPrincipal);
     }
+    
       public Object[][] cargaDatosTabla(int h, int w)
     {
         Object[][] retorno= new Object[h][w];
